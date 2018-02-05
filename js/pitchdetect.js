@@ -111,7 +111,7 @@ function playSong(play) {
 	if (!isPlaying) {
 		audioContext = new AudioContext();
 		// Load audio
-		var audio = new Audio("sounds/Super_Mario_Bros_medley.mp3");
+		var audio = new Audio("sounds/Super_Mario_Bros_medley.ogg");
 		// Create gain node
 		media = audioContext.createMediaElementSource(audio);
 		// Create a AudioGainNode to control the main volume.
