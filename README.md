@@ -30,6 +30,7 @@ Last but not least, I know this is fairly tough to control volume, I hope you en
 
 ### License
 1. Mario music is downloaded from [Nitendo](https://play.nintendo.com/activities/downloads/exclusive-download-super-mario-bros-song/) for personal use
+2. Megaphone icon made by Freepik from www.flaticon.com. Free to use, partialy edited.  
 2. This project is under MIT License
 
 
