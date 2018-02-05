@@ -9,23 +9,23 @@
 
 Have you ever tried to control volume by calling Alexa, Siri or even Google Assistant to change volume for you? How about using your music talent to hum, whistle correct musical notes to adjust volume? 
 
-When you can hum musical notes "Do", you can adjust volume to the scale #1 which is the least volume, when you can make a musical note to "Ti", you can make the loudest sound. :musical_keyboard: 
+When you can hum musical notes "Do", you can adjust volume to the scale #0 which is the least volume, aka mute. When you can make a musical note to "Ti", you can make the loudest sound. :musical_keyboard: 
 
-Last but not least, I know this is fairly tough to control volume, I hope you enjoy the worst design for volume control and get some inspiration for the future Human-Alien-Interstella-Interface design. :trollface:
+Last but not least, I know this is fairly tough to control volume because of music is playing at the same, people are talking all around...Well, I hope you enjoy the worst design for volume control and get some inspiration for the future Human-Alien-Interstella-Interface design. :trollface:
 
 ### Notes
-1. Please allow us to use your microphone just for controlling volume, I promise.
+1. Please allow us to use your microphone just for controlling volume, I promise
 1. Pitch recognition is based on 5KHz signal 
 2. Find anything strange, wrong, please reload your page, or clone to fix it! :fist:
-3. Only tested on following browsers
+3. Only tested on following browsers on computers
  - (success) Chrome Version 63.0.3239.132 (Official Build) (64-bit)
  - (failed) Safari Version 11.0.3 
  - (ok)Firefox 58.0.1 (64-bit) 
 
 ### Known Issue
-1. **Not** fully support for Safari because of this method: `getByteTimeDomainData(dataArray)` Web Audio API, dont' have enough time to solve this, but check [here](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteTimeDomainData) for reference
-2. Audio on Firefox (58.0.1 (64-bit) appears to be only on mono sound
-3. Not so responsive
+1. **NOT** fully support for Safari because of this method: `getByteTimeDomainData(dataArray)` Web Audio API, dont' have enough time to solve this, but check [here](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteTimeDomainData) for reference
+2. Audio on Firefox (58.0.1 (64-bit) appears to be only on mono channel
+3. Not so responsive website
 
 
 ### Reference
