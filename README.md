@@ -1,7 +1,7 @@
 ## Control Your VOLUME by Humming Musical Notes: Do-Re-Mi ~ :alien: :notes: :mega:
 
 
-[![So-Bad-Volume-Control](https://i.imgur.com/W8EnxWO.png)](https://vimeo.com/254377185 "So bad volume control interface - Click to Watch!")
+[![So-Bad-Volume-Control](https://i.imgur.com/nqzQLQk.png)](https://vimeo.com/254377185 "So bad volume control interface - Click to Watch!")
 
 ### Description
 Have you ever tried to control volume by calling Alexa, Siri or even Google Assistant to change volume for you? How about using your music talent to hum, whistle correct musical notes to adjust volume? 
