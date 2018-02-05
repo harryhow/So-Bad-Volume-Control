@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<title> Bad Interface Design - Harry's Creative Tech Challenge </title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+		<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<script src="js/pitchdetect.js"></script>
+	</head>
+	<body id="page-wrap">
+    <!-- all websites HTML here -->
+		<!-- Debugging -->
+		<!-- <input type="range" min="0" max="100" id="volume" /> -->
+		<!-- <canvas id="waveform" width="512" height="256"></canvas> -->		
+	<div>
+		<h1>Try Humming Do-Re-Mi... to change volume</h1>	
+		<button class="button" onclick ="toggleLiveInput()">Change volume <i class="em em-loudspeaker"></i></button>
+		<button class="button" onclick="playSong(1)">Play Song! <i class="em-svg em-musical_note"></i> </button>
+	</div>
+
+	<div id="detector" class="vague">
+		<div class="hide">
+			<div class="pitch"><span id="pitch">--</span>Hz</div>
+			<div class="note"><span id="note">--</span></div>
+			<!-- <canvas id="output" width=300 height=42></canvas> -->
+			<div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+		</div>
+	</div>	
+	</body>
+</html>
