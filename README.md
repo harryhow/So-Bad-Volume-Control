@@ -26,6 +26,7 @@ Last but not least, I know this is fairly tough to control volume because of mus
 1. **NOT** fully support for Safari because of this method: `getByteTimeDomainData(dataArray)` Web Audio API, dont' have enough time to solve this, but check [here](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteTimeDomainData) for reference
 2. Audio on Firefox (58.0.1 (64-bit) appears to be only on mono channel
 3. Not so responsive website
+4. There are potential issues because of multiple running instance for microphone access, e.g. open more than two pages on one computer, running other application (quickTime) to use microphone at the same time. Solution may need to restart your computer.
 
 
 ### Reference
