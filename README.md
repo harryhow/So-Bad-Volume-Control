@@ -7,9 +7,12 @@ When you can hum musical notes "Do", you can adjust volume to the scale #1 which
 
 Last but not least, I know this is fairly tough to control volume, I hope you enjoy the worst design for volume control and get some inspiration for the future Human-Alien-Interstella-Interface design. :trollface:
 
-### Known Issue | Notes
-1. **Not** fully support for Safari because of this method: `getByteTimeDomainData(dataArray)` Web Audio API, dont' have enough time to solve this, but check [here](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteTimeDomainData) for reference.
+### Notes
+1. Pitch recognition is based on 5KHz signal 
 2. Find anyting strange, wrong, please reload your page, or clone to fix it! :fist:
+
+### Known Issue
+1. **Not** fully support for Safari because of this method: `getByteTimeDomainData(dataArray)` Web Audio API, dont' have enough time to solve this, but check [here](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteTimeDomainData) for reference.
 
 
 ### Reference
