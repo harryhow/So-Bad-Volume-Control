@@ -8,6 +8,7 @@ When you can hum musical notes "Do", you can adjust volume to the scale #1 which
 Last but not least, I know this is fairly tough to control volume, I hope you enjoy the worst design for volume control and get some inspiration for the future Human-Alien-Interstella-Interface design. :trollface:
 
 ### Notes
+1. Please allow us to use your microphone just for controlling volume, I promise.
 1. Pitch recognition is based on 5KHz signal 
 2. Find anything strange, wrong, please reload your page, or clone to fix it! :fist:
 3. Only tested on following browsers
