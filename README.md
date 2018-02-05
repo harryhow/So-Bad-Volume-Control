@@ -9,10 +9,15 @@ Last but not least, I know this is fairly tough to control volume, I hope you en
 
 ### Notes
 1. Pitch recognition is based on 5KHz signal 
-2. Find anyting strange, wrong, please reload your page, or clone to fix it! :fist:
+2. Find anything strange, wrong, please reload your page, or clone to fix it! :fist:
+3. Only tested on following browsers
+ - (success) Chrome Version 63.0.3239.132 (Official Build) (64-bit)
+ - (failed) Safari Version 11.0.3 
+ - (ok)Firefox 58.0.1 (64-bit) 
 
 ### Known Issue
 1. **Not** fully support for Safari because of this method: `getByteTimeDomainData(dataArray)` Web Audio API, dont' have enough time to solve this, but check [here](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteTimeDomainData) for reference.
+2. Audio on Firefox (58.0.1 (64-bit) appears to be only on mono sound. 
 
 
 ### Reference
