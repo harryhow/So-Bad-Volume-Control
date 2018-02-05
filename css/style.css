@@ -26,6 +26,17 @@
 	display:none
 }
 
+
+a {
+  text-decoration: none ;
+}
+
+a:hover {
+  color:#3554a1;
+  text-decoration:none;
+  cursor:pointer;
+}
+
 h1 {
     text-align: center;
     text-transform: uppercase;
@@ -39,4 +50,6 @@ h1 {
     width: 100%;
     padding: 10px;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
 }

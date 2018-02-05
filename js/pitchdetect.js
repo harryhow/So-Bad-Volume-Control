@@ -21,9 +21,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-var img;
 
 //  -- Embed p5.js for visual
+var img;
 function setup() {
   createCanvas(1024, 768); 
   img = loadImage('img/megaphone-body.png');
@@ -32,7 +32,7 @@ function setup() {
 function draw() {
   background(255);
  
-  image(img, volumeScale+100, volumeScale+200, 335/3, 374/3);
+  image(img, volumeScale+100, volumeScale+220, 335/3, 374/3);
   push();
   strokeWeight(4);
   stroke(51);
@@ -42,8 +42,12 @@ function draw() {
   }
   pop();
   fill(0);
-  textSize(22);
-  text("Volume: "+volumeScale + "\nNode: " + noteStrings[volumeScale], 450, 500);
+  textSize(16);
+  if (isChangeVolume)
+  	text("Current Volume: "+volumeValue+" | Your Note: " + noteStrings[volumeScale], 400, 500);
+  else
+  	text("Current Volume: "+volumeValue, 450, 500);
+
 };
 //  -- Embed p5.js for visual
 
@@ -59,8 +63,10 @@ if (!AudioContext) {
   throw new Error("Sorry, the Web Audio API is not supported by your browser.");
 } 
 
+// Needs to cleanup
 var audioContext = null;
 var isPlaying = false;
+var isPlayAgain = false
 var sourceNode = null;
 var analyser = null;
 var theBuffer = null;
@@ -74,7 +80,9 @@ var detectorElem,
 	detuneAmount;
 
 var media, volumeGain;
+var volumeValue = 0.5;
 var volumeScale = 0;
+var isChangeVolume = false;
 
 
 window.onload = function() {
@@ -82,12 +90,15 @@ window.onload = function() {
 }
 
 
-
 function changeVolumeByNote(note) {
-	// note: 0 - 11
-	console.log("Change volume: " + note * 9);
-	volumeGain.gain.value = note * 9;
+	// Note: 0 - 11
+	isChangeVolume = true;
+	var value = note * 9;
+	console.log("Change volume: " + value);
+
+	volumeGain.gain.value = value;
 	volumeScale = note;
+	volumeValue = value;
 }
 
 
@@ -106,12 +117,16 @@ function throttle (callback, limit) {
   }
 }
 
-function playSong(play) {
 
+
+function playSong(play) {
 	if (!isPlaying) {
 		audioContext = new AudioContext();
 		// Load audio
 		var audio = new Audio("sounds/Super_Mario_Bros_medley.ogg");
+		audio.autoplay = true;
+		audio.loop = true;
+
 		// Create gain node
 		media = audioContext.createMediaElementSource(audio);
 		// Create a AudioGainNode to control the main volume.
@@ -121,52 +136,31 @@ function playSong(play) {
 		// Connect the main volume node to the context destination.	
 		volumeGain.connect(audioContext.destination);
 
-		// Volume control
-		// onload = volume.onchange=function(){
-		//   volumeGain.gain.value = volume.value/100;
-		// };
-		volumeGain.gain.value = 1;
+		volumeGain.gain.value = 0.5;
 		// Plau aiudio
 		if (play == 1) {
 			isPlaying = true;
+			isPlayAgain = true;
 			audio.play();
 		}
 	}
 }
 
 function init() {
-	// audioContext = new AudioContext();
-	// // Load audio
-	// var audio = new Audio("sounds/Super_Mario_Bros_medley.mp3");
-	// // Create gain node
-	// media = audioContext.createMediaElementSource(audio);
-	// // Create a AudioGainNode to control the main volume.
-	// volumeGain = audioContext.createGain();
-	// // Connect volume gain node
-	// media.connect(volumeGain);
-	// // Connect the main volume node to the context destination.	
-	// volumeGain.connect(audioContext.destination);
 
-	// // Volume control
-	// // onload = volume.onchange=function(){
-	// //   volumeGain.gain.value = volume.value/100;
-	// // };
-	// volumeGain.gain.value = 1;
-	// // Plau aiudio
-	// audio.play();
 	if (!audioContext)
 		playSong(0);
 
 
 	MAX_SIZE = Math.max(4,Math.floor(audioContext.sampleRate/5000));	// corresponds to a 5kHz signal
 
-	detectorElem = document.getElementById( "detector" );
-	canvasElem = document.getElementById( "output" );
+	detectorElem = document.getElementById("detector");
+	canvasElem = document.getElementById("output");
 
-	pitchElem = document.getElementById( "pitch" );
-	noteElem = document.getElementById( "note" );
-	detuneElem = document.getElementById( "detune" );
-	detuneAmount = document.getElementById( "detune_amt" );
+	pitchElem = document.getElementById("pitch");
+	noteElem = document.getElementById("note");
+	detuneElem = document.getElementById("detune");
+	detuneAmount = document.getElementById("detune_amt");
 
 	detectorElem.ondragenter = function () { 
 		this.classList.add("droptarget"); 
@@ -194,7 +188,7 @@ function init() {
 
 
 function error() {
-    alert('Stream generation failed.');
+    alert('getUserMedia may not support! Please try another browser');
 }
 
 function getUserMedia(dictionary, callback) {
@@ -214,7 +208,6 @@ function getUserMedia(dictionary, callback) {
 function gotStream(stream) {
     // Create an AudioNode from the stream.
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
-
     // Connect it to the destination.
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 2048;
@@ -222,43 +215,8 @@ function gotStream(stream) {
     updatePitch();
 }
 
-function toggleOscillator() {
-    if (isPlaying) {
-        //stop playing and return
-        sourceNode.stop( 0 );
-        sourceNode = null;
-        analyser = null;
-        isPlaying = false;
-		if (!window.cancelAnimationFrame)
-			window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-        window.cancelAnimationFrame( rafID );
-        return "play oscillator";
-    }
-    sourceNode = audioContext.createOscillator();
-
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
-    sourceNode.connect( analyser );
-    analyser.connect( audioContext.destination );
-    sourceNode.start(0);
-    isPlaying = true;
-    isLiveInput = false;
-    updatePitch();
-
-    return "stop";
-}
 
 function toggleLiveInput() {
-  //   if (isPlaying) {
-  //       //stop playing and return
-  //       sourceNode.stop( 0 );
-  //       sourceNode = null;
-  //       analyser = null;
-  //       isPlaying = false;
-		// if (!window.cancelAnimationFrame)
-		// 	window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-  //       window.cancelAnimationFrame( rafID );
-  //   }
     getUserMedia(
     	{
             "audio": {
@@ -273,34 +231,6 @@ function toggleLiveInput() {
         }, gotStream);
 }
 
-function togglePlayback() {
-    if (isPlaying) {
-        //stop playing and return
-        sourceNode.stop( 0 );
-        sourceNode = null;
-        analyser = null;
-        isPlaying = false;
-		if (!window.cancelAnimationFrame)
-			window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
-        window.cancelAnimationFrame( rafID );
-        return "start";
-    }
-
-    sourceNode = audioContext.createBufferSource();
-    sourceNode.buffer = theBuffer;
-    sourceNode.loop = true;
-
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
-    sourceNode.connect( analyser );
-    analyser.connect( audioContext.destination );
-    sourceNode.start( 0 );
-    isPlaying = true;
-    isLiveInput = false;
-    updatePitch();
-
-    return "stop";
-}
 
 var rafID = null;
 var tracks = null;
@@ -309,24 +239,24 @@ var buf = new Float32Array(buflen);
 
 var noteStrings = ["Do", "Doo~", "Re", "Ree~", "Mi", "Fa", "Faaa!", "So", "Sooo~", "La", "Laa!", "Ti"];
 
-function noteFromPitch( frequency ) {
-	var noteNum = 12 * (Math.log( frequency / 440 )/Math.log(2) );
-	return Math.round( noteNum ) + 69;
+function noteFromPitch(frequency) {
+	var noteNum = 12 * (Math.log(frequency / 440 )/Math.log(2));
+	return Math.round(noteNum) + 69;
 }
 
-function frequencyFromNoteNumber( note ) {
+function frequencyFromNoteNumber(note) {
 	return 440 * Math.pow(2,(note-69)/12);
 }
 
-function centsOffFromPitch( frequency, note ) {
-	return Math.floor( 1200 * Math.log( frequency / frequencyFromNoteNumber( note ))/Math.log(2) );
+function centsOffFromPitch(frequency, note) {
+	return Math.floor(1200 * Math.log(frequency / frequencyFromNoteNumber(note))/Math.log(2));
 }
 
 
 var MIN_SAMPLES = 0;  // will be initialized when AudioContext is created.
 var GOOD_ENOUGH_CORRELATION = 0.9; // this is the "bar" for how close a correlation needs to be
 
-function autoCorrelate( buf, sampleRate ) {
+function autoCorrelate(buf, sampleRate) {
 	var SIZE = buf.length;
 	var MAX_SAMPLES = Math.floor(SIZE/2);
 	var best_offset = -1;
@@ -421,14 +351,10 @@ function updatePitch(time) {
 	if (!window.requestAnimationFrame)
 		window.requestAnimationFrame = window.webkitRequestAnimationFrame;
 
-	//var fps = 30;
- 
+	//trick for slowing too many signals by using fps control
 	setTimeout(function() {
 	        rafID = window.requestAnimationFrame(updatePitch);
-	 
 	        // ... Code for Drawing the Frame ...
 	 
 	}, 1000/10);
- 
-	// rafID = window.requestAnimationFrame( updatePitch );
 }
