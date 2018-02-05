@@ -4,6 +4,9 @@
 [![So-Bad-Volume-Control](https://i.imgur.com/nqzQLQk.png)](https://vimeo.com/254377185 "So bad volume control interface - Click to Watch!")
 
 ### Description
+
+[Live Demo](https://harryhow.github.io/So-Bad-Volume-Control/index.html) here! :rocket:
+
 Have you ever tried to control volume by calling Alexa, Siri or even Google Assistant to change volume for you? How about using your music talent to hum, whistle correct musical notes to adjust volume? 
 
 When you can hum musical notes "Do", you can adjust volume to the scale #1 which is the least volume, when you can make a musical note to "Ti", you can make the loudest sound. :musical_keyboard: 
